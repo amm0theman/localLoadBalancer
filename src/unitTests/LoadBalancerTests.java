@@ -13,10 +13,11 @@ class LoadBalancerTests {
 
 	RequestMaker[] manyRequests;
 	LoadBalancer loadBalancer;
+	WhereIsWaldo[] whereIsWaldo;
 	
 	@BeforeEach
 	void setup() throws Exception {
-		loadBalancer = new LoadBalancer();
+		loadBalancer = new LoadBalancer(whereIsWaldo, manyRequests);
 		manyRequests = new RequestMaker[10000];
 		
 		for(int i = 0; i < manyRequests.length; i++) {

@@ -1,10 +1,16 @@
 package loadBalancer;
 
+import java.util.ArrayList;
 import java.util.concurrent.*;
 
 public class WhereIsWaldo implements Runnable {
-	
+	private LoadBalancer loadBalancer;
 	private int whatNum;
+	private ArrayList<Integer> newRequests = new ArrayList<Integer>();
+	
+	public WhereIsWaldo(LoadBalancer loadBalancer) {
+		this.loadBalancer = loadBalancer;
+	}
 	
 	public int getWhatNum() {
 		return whatNum;
@@ -19,11 +25,15 @@ public class WhereIsWaldo implements Runnable {
 
 	@Override
 	public void run() {
-		if(whatNum == -1)
-			return;
-		int r = 0;
-		while(r != whatNum) {
-			r = ThreadLocalRandom.current().nextInt(0, 10000);
-		}
+		//if there i a request on the queue
+			//get the request and do below
+			if(whatNum == -1)
+				return;
+			int r = 10001;
+			while(r != whatNum) {
+				r = ThreadLocalRandom.current().nextInt(0, 10000);
+			}
+			//if we get to here we succeeded so tell LB we succeeded
+			loadBalancer.makeReturnRequest(whatNum);
 	}
 }
