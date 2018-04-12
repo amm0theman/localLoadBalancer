@@ -6,23 +6,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import loadBalancer.LBlistener;
+import loadBalancer.LoadBalancer;
 import loadBalancer.RequestMaker;
 
 class RequestMakerTests {
 
 	private RequestMaker requestMaker;
-	private LBlistener lbListener;
+	private LoadBalancer loadBalancer;
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		lbListener = new LBlistener();
-		requestMaker = new RequestMaker(lbListener);
+		loadBalancer = new LoadBalancer();
+		requestMaker = new RequestMaker(loadBalancer, 0);
 	}
 
 	@Test
 	void test() {
 		requestMaker.makeRequest();
-		assertEquals(requestMaker.hasFalse(), true);
+		assertEquals(requestMaker.isRequestSuccess(), false);
 	}
 
 }

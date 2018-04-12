@@ -1,13 +1,21 @@
 package loadBalancer;
 
-public class LBlistener implements Runnable {
+import java.util.ArrayList;
 
-	@Override
-	public void run() {
-		
-	}
+public class LBlistener {
 
-	public boolean makeRequest() {
-		return false;
+	private ArrayList<Integer> lbList;
+	
+	LBlistener(ArrayList<Integer> lbList) {
+		this.lbList = lbList;
 	}
+	
+	public void makeRequest(int user) {
+		synchronized (lbList) {
+			lbList.add(user);
+		}
+	}
+	
+	//For testing
+	
 }
