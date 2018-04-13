@@ -13,7 +13,7 @@ class WhereIsWaldoTests {
 	
 	@BeforeEach
 	void setup() throws Exception {
-		whereIsWaldo = new WhereIsWaldo();
+		whereIsWaldo = new WhereIsWaldo(new LoadBalancer(new WhereIsWaldo[4], new RequestMaker[0]));
 		waldoThread = new Thread(whereIsWaldo);
 	}
 	

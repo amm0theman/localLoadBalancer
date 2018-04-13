@@ -14,6 +14,7 @@ public class LBlistener {
 	//whenever you get a request add it to the queue as fast as possible
 	public void makeRequest(int user) {
 		synchronized (lbList) {
+			System.out.println("Request made in LBListener");
 			lbList.add(user);
 		}
 	}

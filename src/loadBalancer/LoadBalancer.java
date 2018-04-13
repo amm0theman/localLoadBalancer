@@ -21,12 +21,13 @@ public class LoadBalancer {
 		for(int i = 0; i < lbWorker.length; i++) {
 			lbWorker[i] = new LBworker(this, taskDoers);
 		}
-		//Initialize workers
+		//make threads on workers
 		for(int i = 0; i < lbWorker.length; i++) {
 			lbWorkerThreads[i] = new Thread(lbWorker[i]);
 		}
-		//Start workers
+		//Start workers threads
 		for(int i = 0; i < lbWorker.length; i++) {
+			System.out.println(i);
 			lbWorkerThreads[i].start();
 		}
 	}
@@ -38,14 +39,14 @@ public class LoadBalancer {
 	}
 	
 	public void makeReturnRequest(int user) {
-		
+		manyConnections[user].finishRequest(true);
 	}
 	
 	//will remove an item from the list (if there is something on the list) and return it, otherwise return null
 	public Integer requestListInt() {
 		synchronized (lbList) {
-		if(!isListEmpty()) {
-			return lbList.get(0);
+		if(!lbList.isEmpty()) {
+			return lbList.remove(0);
 		}
 		else
 			return null;
