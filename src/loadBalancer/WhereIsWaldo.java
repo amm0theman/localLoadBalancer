@@ -41,6 +41,7 @@ public class WhereIsWaldo implements Runnable {
 	public void run() {
 		while(true) {
 			//if there i a request on the queue
+			synchronized(newRequests) {
 			if(!newRequests.isEmpty()) {
 				//get the request and do below
 				whatNum = newRequests.remove(0);
@@ -50,9 +51,10 @@ public class WhereIsWaldo implements Runnable {
 				while(r != whatNum) {
 					r = ThreadLocalRandom.current().nextInt(0, 10000);
 				}
-				System.out.println("Making return request in WhereIsWaldo\n");	//DEBUG
+				//System.out.println("Making return request in WhereIsWaldo\n");	//DEBUG
 				//if we get to here we succeeded so tell LB we succeeded
 				loadBalancer.makeReturnRequest(whatNum);
+			}
 			}
 		}
 	}

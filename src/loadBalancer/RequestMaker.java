@@ -34,12 +34,12 @@ public class RequestMaker {
 		loadBalancer.makeRequest(objNumber);
 	}
 	
-	public void finishRequest(boolean requestSuccess) {
+	synchronized public void finishRequest(boolean requestSuccess) {
 		this.requestSuccess = requestSuccess;
 		requestDone();
 	}
 	
-	private void requestDone() {
+	synchronized private void requestDone() {
 		if(requestSuccess) {
 			numSuccesses++;
 			System.out.println("Successful Request Object" + objNumber + " - Total successful requests: " + numSuccesses);

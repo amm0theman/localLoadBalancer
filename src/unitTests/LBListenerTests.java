@@ -17,7 +17,7 @@ class LBListenerTests {
 	@BeforeEach
 	void setup() throws Exception {
 		loadBalancer = new LoadBalancer(whereIsWaldo, manyRequests);
-		manyRequests = new RequestMaker[10000];
+		manyRequests = new RequestMaker[1000];
 		
 		for(int i = 0; i < manyRequests.length; i++) {
 			manyRequests[i] = new RequestMaker(loadBalancer, i);
